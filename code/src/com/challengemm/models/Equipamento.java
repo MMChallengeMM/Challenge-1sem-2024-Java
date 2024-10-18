@@ -18,8 +18,12 @@ public class Equipamento {
     private STATUS_EQUIPAMENTO statusEquipamento;
     private List<Falha> falhasEquipamento;
 
-    public void atualizarStatus(STATUS_EQUIPAMENTO novoStatus) {
-        this.statusEquipamento = novoStatus;
+    public void addFalha(Falha falha) {
+        falhasEquipamento.add(falha);
+    }
+
+    public void removeFalha(Falha falha) {
+        falhasEquipamento.remove(falha);
     }
 
     //Métodos Gerais
@@ -68,6 +72,10 @@ public class Equipamento {
 
     public STATUS_EQUIPAMENTO getStatusEquipamento() {
         return statusEquipamento;
+    }
+
+    public void setStatusEquipamento(STATUS_EQUIPAMENTO statusEquipamentoo) {
+        this.statusEquipamento = statusEquipamentoo;
     }
 
     public List<Falha> getFalhasEquipamento() {
