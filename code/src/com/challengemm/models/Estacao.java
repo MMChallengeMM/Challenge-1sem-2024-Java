@@ -1,30 +1,28 @@
 package com.challengemm.models;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class Estacao {
+public class Estacao extends MecanismoDaFerrovia {
 
-    private String idEstacao;
-    private String nomeEstacao;
-    private String localizacaoEstacao;
-    private List<Equipamento> equipamentosEstacao;
-    private List<Linha> linhasEstacao;
-
-    public void addEquipamento(Equipamento equipamento) {
-        equipamentosEstacao.add(equipamento);
-    }
-
-    public void removeEquipamento(Equipamento equipamento) {
-        equipamentosEstacao.remove(equipamento);
-    }
+    private String enderecoEstacao;
+    private List<Linha> linhas = new ArrayList<>();
 
     public void addLinha(Linha linha) {
-        linhasEstacao.add(linha);
+        linhas.add(linha);
+        if (linha.getEstacoes().contains(this)) {
+            return;
+        }
+        linha.addEstacao(this);
     }
 
     public void removeLinha(Linha linha) {
-        linhasEstacao.remove(linha);
+        linhas.remove(linha);
+        if (!linha.getEstacoes().contains(this)) {
+            return;
+        }
+        linha.removeEstacao(this);
     }
 
     //Métodos gerais
@@ -32,73 +30,50 @@ public class Estacao {
     public Estacao() {
     }
 
-    public Estacao(String idEstacao, String nomeEstacao, String localizacaoEstacao) {
-        this.idEstacao = idEstacao;
-        this.nomeEstacao = nomeEstacao;
-        this.localizacaoEstacao = localizacaoEstacao;
+    public Estacao(String id, String nome, String enderecoEstacao) {
+        super(id, nome);
+        this.enderecoEstacao = enderecoEstacao;
     }
 
-    public Estacao(String idEstacao, String nomeEstacao, String localizacaoEstacao, List<Equipamento> equipamentosEstacao, List<Linha> linhasEstacao) {
-        this.idEstacao = idEstacao;
-        this.nomeEstacao = nomeEstacao;
-        this.localizacaoEstacao = localizacaoEstacao;
-        this.equipamentosEstacao = equipamentosEstacao;
-        this.linhasEstacao = linhasEstacao;
+    public Estacao(String id, String nome, List<Equipamento> equipamentos, String enderecoEstacao, List<Linha> linhas) {
+        super(id, nome, equipamentos);
+        this.enderecoEstacao = enderecoEstacao;
+        this.linhas = linhas;
     }
 
-    public String getIdEstacao() {
-        return idEstacao;
+    public String getEnderecoEstacao() {
+        return enderecoEstacao;
     }
 
-    public void setIdEstacao(String idEstacao) {
-        this.idEstacao = idEstacao;
+    public void setEnderecoEstacao(String enderecoEstacao) {
+        this.enderecoEstacao = enderecoEstacao;
     }
 
-    public String getNomeEstacao() {
-        return nomeEstacao;
-    }
-
-    public void setNomeEstacao(String nomeEstacao) {
-        this.nomeEstacao = nomeEstacao;
-    }
-
-    public String getLocalizacaoEstacao() {
-        return localizacaoEstacao;
-    }
-
-    public void setLocalizacaoEstacao(String localizacaoEstacao) {
-        this.localizacaoEstacao = localizacaoEstacao;
-    }
-
-    public List<Equipamento> getEquipamentosEstacao() {
-        return equipamentosEstacao;
-    }
-
-    public List<Linha> getLinhasEstacao() {
-        return linhasEstacao;
+    public List<Linha> getLinhas() {
+        return linhas;
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
         Estacao estacao = (Estacao) o;
-        return Objects.equals(getIdEstacao(), estacao.getIdEstacao()) && Objects.equals(getNomeEstacao(), estacao.getNomeEstacao()) && Objects.equals(getLocalizacaoEstacao(), estacao.getLocalizacaoEstacao()) && Objects.equals(getEquipamentosEstacao(), estacao.getEquipamentosEstacao()) && Objects.equals(getLinhasEstacao(), estacao.getLinhasEstacao());
+        return Objects.equals(getEnderecoEstacao(), estacao.getEnderecoEstacao()) && Objects.equals(getLinhas(), estacao.getLinhas());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getIdEstacao(), getNomeEstacao(), getLocalizacaoEstacao(), getEquipamentosEstacao(), getLinhasEstacao());
+        return Objects.hash(super.hashCode(), getEnderecoEstacao(), getLinhas());
     }
 
     @Override
     public String toString() {
         return "Estacao{" +
-                "idEstacao='" + idEstacao + '\'' +
-                ", nomeEstacao='" + nomeEstacao + '\'' +
-                ", localizacaoEstacao='" + localizacaoEstacao + '\'' +
-                ", equipamentosEstacao=" + equipamentosEstacao +
-                ", linhasEstacao=" + linhasEstacao +
-                '}';
+                "enderecoEstacao='" + enderecoEstacao + '\'' +
+                ", linhas=" + linhas.stream()
+                .map(MecanismoDaFerrovia::getNome)
+                .toList() +
+                "} " + super.toString();
     }
 }

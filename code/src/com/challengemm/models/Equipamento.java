@@ -1,5 +1,6 @@
 package com.challengemm.models;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -14,9 +15,9 @@ public class Equipamento {
 
     private String idEquipamento;
     private String nomeEquipamento;
-    private String localizacaoEquipamento;
+    private MecanismoDaFerrovia localizacaoEquipamento;
     private STATUS_EQUIPAMENTO statusEquipamento;
-    private List<Falha> falhasEquipamento;
+    private List<Falha> falhasEquipamento = new ArrayList<>();
 
     public void addFalha(Falha falha) {
         falhasEquipamento.add(falha);
@@ -31,17 +32,19 @@ public class Equipamento {
     public Equipamento() {
     }
 
-    public Equipamento(String idEquipamento, String nomeEquipamento, String localizacaoEquipamento, STATUS_EQUIPAMENTO statusEquipamento) {
+    public Equipamento(String idEquipamento, String nomeEquipamento, MecanismoDaFerrovia localizacaoEquipamento, STATUS_EQUIPAMENTO statusEquipamento) {
         this.idEquipamento = idEquipamento;
         this.nomeEquipamento = nomeEquipamento;
         this.localizacaoEquipamento = localizacaoEquipamento;
+        this.localizacaoEquipamento.addEquipamento(this);
         this.statusEquipamento = statusEquipamento;
     }
 
-    public Equipamento(String idEquipamento, String nomeEquipamento, String localizacaoEquipamento, STATUS_EQUIPAMENTO statusEquipamento, List<Falha> falhasEquipamento) {
+    public Equipamento(String idEquipamento, String nomeEquipamento, MecanismoDaFerrovia localizacaoEquipamento, STATUS_EQUIPAMENTO statusEquipamento, List<Falha> falhasEquipamento) {
         this.idEquipamento = idEquipamento;
         this.nomeEquipamento = nomeEquipamento;
         this.localizacaoEquipamento = localizacaoEquipamento;
+        this.localizacaoEquipamento.addEquipamento(this);
         this.statusEquipamento = statusEquipamento;
         this.falhasEquipamento = falhasEquipamento;
     }
@@ -62,11 +65,11 @@ public class Equipamento {
         this.nomeEquipamento = nomeEquipamento;
     }
 
-    public String getLocalizacaoEquipamento() {
+    public MecanismoDaFerrovia getLocalizacaoEquipamento() {
         return localizacaoEquipamento;
     }
 
-    public void setLocalizacaoEquipamento(String localizacaoEquipamento) {
+    public void setLocalizacaoEquipamento(MecanismoDaFerrovia localizacaoEquipamento) {
         this.localizacaoEquipamento = localizacaoEquipamento;
     }
 
@@ -100,7 +103,7 @@ public class Equipamento {
         return "Equipamento{" +
                 "idEquipamento='" + idEquipamento + '\'' +
                 ", nomeEquipamento='" + nomeEquipamento + '\'' +
-                ", localizacaoEquipamento='" + localizacaoEquipamento + '\'' +
+                ", localizacaoEquipamento=" + localizacaoEquipamento.getNome() +
                 ", statusEquipamento=" + statusEquipamento +
                 ", falhasEquipamento=" + falhasEquipamento +
                 '}';

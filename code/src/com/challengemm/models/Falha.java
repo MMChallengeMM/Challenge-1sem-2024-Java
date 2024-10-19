@@ -1,26 +1,22 @@
 package com.challengemm.models;
 
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 public class Falha {
     public enum TIPO_FALHA {
-        FALHAS_TECNICAS,
-        FALHAS_OPERACIONAIS,
-        FALHAS_DE_SEGURANCA,
-        CONDICOES_METEOROLOGICAS,
-        FATORES_HUMANOS,
-        PROBLEMAS_LOGISTICOS,
-        FALTA_DE_MANTENCAO,
-        FATORES_EXTERNOS
+        MECANICA,
+        ELETRICA,
+        CONTROLE,
+        OUTRAS
     }
 
+
     public enum STATUS_FALHA {
-        ATIVA,
         EM_ANALISE,
         PENDENTE,
         RESOLVIDA,
         CANCELADA,
-        NORMALIZADA
     }
 
     private String idFalha;
@@ -29,20 +25,20 @@ public class Falha {
     private LocalDateTime dataRegistro;
     private Equipamento equipamentoEnvolvido;
     private STATUS_FALHA statusFalha;
-    private Manutencao manutencaoResponsavel;
 
     //Métodos Gerais
 
     public Falha() {
     }
 
-    public Falha(String idFalha, TIPO_FALHA tipoFalha, String descricaoFalha, LocalDateTime dataRegistro, Equipamento equipamentoEnvolvido, STATUS_FALHA statusFalha) {
+    public Falha(String idFalha, TIPO_FALHA tipoFalha, String descricaoFalha, Equipamento equipamentoEnvolvido) {
         this.idFalha = idFalha;
         this.tipoFalha = tipoFalha;
         this.descricaoFalha = descricaoFalha;
-        this.dataRegistro = dataRegistro;
+        this.dataRegistro = LocalDateTime.now();
         this.equipamentoEnvolvido = equipamentoEnvolvido;
-        this.statusFalha = statusFalha;
+        this.equipamentoEnvolvido.addFalha(this);
+        this.statusFalha = STATUS_FALHA.EM_ANALISE;
     }
 
     public String getIdFalha() {
@@ -73,16 +69,8 @@ public class Falha {
         return dataRegistro;
     }
 
-    public void setDataRegistro(LocalDateTime dataRegistro) {
-        this.dataRegistro = dataRegistro;
-    }
-
     public Equipamento getEquipamentoEnvolvido() {
         return equipamentoEnvolvido;
-    }
-
-    public void setEquipamentoEnvolvido(Equipamento equipamentoEnvolvido) {
-        this.equipamentoEnvolvido = equipamentoEnvolvido;
     }
 
     public STATUS_FALHA getStatusFalha() {
@@ -93,11 +81,28 @@ public class Falha {
         this.statusFalha = statusFalha;
     }
 
-    public Manutencao getManutencaoResponsavel() {
-        return manutencaoResponsavel;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Falha falha = (Falha) o;
+        return Objects.equals(getIdFalha(), falha.getIdFalha()) && getTipoFalha() == falha.getTipoFalha() && Objects.equals(getDescricaoFalha(), falha.getDescricaoFalha()) && Objects.equals(getDataRegistro(), falha.getDataRegistro()) && Objects.equals(getEquipamentoEnvolvido(), falha.getEquipamentoEnvolvido()) && getStatusFalha() == falha.getStatusFalha();
     }
 
-    public void setManutencaoResponsavel(Manutencao manutencaoResponsavel) {
-        this.manutencaoResponsavel = manutencaoResponsavel;
+    @Override
+    public int hashCode() {
+        return Objects.hash(getIdFalha(), getTipoFalha(), getDescricaoFalha(), getDataRegistro(), getEquipamentoEnvolvido(), getStatusFalha());
+    }
+
+    @Override
+    public String toString() {
+        return "Falha{" +
+                "idFalha='" + idFalha + '\'' +
+                ", tipoFalha=" + tipoFalha +
+                ", descricaoFalha='" + descricaoFalha + '\'' +
+                ", dataRegistro=" + dataRegistro +
+                ", equipamentoEnvolvido=" + equipamentoEnvolvido.getNomeEquipamento() + " - " + equipamentoEnvolvido.getIdEquipamento() +
+                ", statusFalha=" + statusFalha +
+                '}';
     }
 }
