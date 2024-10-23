@@ -36,10 +36,6 @@ public class Trem {
         return idTrem;
     }
 
-    public void setIdTrem(String idTrem) {
-        this.idTrem = idTrem;
-    }
-
     public List<Vagao> getVagoes() {
         return vagoes;
     }

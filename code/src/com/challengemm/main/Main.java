@@ -14,11 +14,15 @@ public class Main {
         estacao1.addLinha(linha2);
         estacao2.addLinha(linha2);
 
-        var equip1 = new Equipamento("1","Catraca",estacao1, Equipamento.STATUS_EQUIPAMENTO.ATIVO);
+        var equip1 = new Equipamento("1","Catraca",estacao1, STATUS_EQUIPAMENTO.ATIVO, new HistoricoFalhas());
 
-        var falha1 = new Falha("2", Falha.TIPO_FALHA.ELETRICA,"Painel não funciona", equip1);
+//        equip1.getHistoricoFalhas().addFalha(new Falha(TIPO_FALHA.ELETRICA));
+//        equip1.getHistoricoFalhas().addFalha(new Falha(TIPO_FALHA.SOFTWARE));
+//        equip1.getHistoricoFalhas().addFalha(new Falha(TIPO_FALHA.OUTRO));
+//        equip1.getHistoricoFalhas().addFalha(new Falha(TIPO_FALHA.MECANICA));
+//        equip1.getHistoricoFalhas().addFalha(new Falha(TIPO_FALHA.SOFTWARE));
 
-        System.out.println(falha1);
+        new Relatorio("1",equip1.getHistoricoFalhas()).exibirRelatorio();
 
 
 

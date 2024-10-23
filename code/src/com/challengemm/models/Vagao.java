@@ -4,16 +4,7 @@ import java.util.List;
 import java.util.Objects;
 
 public class Vagao extends MecanismoDaFerrovia{
-    public enum TIPO_VAGAO {
-        CARGA,
-        PASSAGEIRO,
-        TANQUE,
-        GONDOLA,
-        PLATAFORMA,
-        FRIGORIFICO,
-        BOVINO,
-        POSTAL
-    }
+
     private TIPO_VAGAO tipoVagao;
 
     //Métodos Gerais

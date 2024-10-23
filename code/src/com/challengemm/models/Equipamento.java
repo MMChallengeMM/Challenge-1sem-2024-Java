@@ -1,60 +1,31 @@
 package com.challengemm.models;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 
 public class Equipamento {
-    public enum STATUS_EQUIPAMENTO {
-        ATIVO,
-        INATIVO,
-        EM_MANUTENCAO,
-        COM_FALHA,
-        DESCARTADO
-    }
 
     private String idEquipamento;
     private String nomeEquipamento;
     private MecanismoDaFerrovia localizacaoEquipamento;
     private STATUS_EQUIPAMENTO statusEquipamento;
-    private List<Falha> falhasEquipamento = new ArrayList<>();
-
-    public void addFalha(Falha falha) {
-        falhasEquipamento.add(falha);
-    }
-
-    public void removeFalha(Falha falha) {
-        falhasEquipamento.remove(falha);
-    }
+    private HistoricoFalhas historicoFalhas;
 
     //Métodos Gerais
 
     public Equipamento() {
     }
 
-    public Equipamento(String idEquipamento, String nomeEquipamento, MecanismoDaFerrovia localizacaoEquipamento, STATUS_EQUIPAMENTO statusEquipamento) {
+    public Equipamento(String idEquipamento, String nomeEquipamento, MecanismoDaFerrovia localizacaoEquipamento, STATUS_EQUIPAMENTO statusEquipamento, HistoricoFalhas historicoFalhas) {
         this.idEquipamento = idEquipamento;
         this.nomeEquipamento = nomeEquipamento;
         this.localizacaoEquipamento = localizacaoEquipamento;
         this.localizacaoEquipamento.addEquipamento(this);
         this.statusEquipamento = statusEquipamento;
-    }
-
-    public Equipamento(String idEquipamento, String nomeEquipamento, MecanismoDaFerrovia localizacaoEquipamento, STATUS_EQUIPAMENTO statusEquipamento, List<Falha> falhasEquipamento) {
-        this.idEquipamento = idEquipamento;
-        this.nomeEquipamento = nomeEquipamento;
-        this.localizacaoEquipamento = localizacaoEquipamento;
-        this.localizacaoEquipamento.addEquipamento(this);
-        this.statusEquipamento = statusEquipamento;
-        this.falhasEquipamento = falhasEquipamento;
+        this.historicoFalhas = historicoFalhas;
     }
 
     public String getIdEquipamento() {
         return idEquipamento;
-    }
-
-    public void setIdEquipamento(String idEquipamento) {
-        this.idEquipamento = idEquipamento;
     }
 
     public String getNomeEquipamento() {
@@ -77,12 +48,16 @@ public class Equipamento {
         return statusEquipamento;
     }
 
-    public void setStatusEquipamento(STATUS_EQUIPAMENTO statusEquipamentoo) {
-        this.statusEquipamento = statusEquipamentoo;
+    public void setStatusEquipamento(STATUS_EQUIPAMENTO statusEquipamento) {
+        this.statusEquipamento = statusEquipamento;
     }
 
-    public List<Falha> getFalhasEquipamento() {
-        return falhasEquipamento;
+    public HistoricoFalhas getHistoricoFalhas() {
+        return historicoFalhas;
+    }
+
+    public void setHistoricoFalhas(HistoricoFalhas historicoFalhas) {
+        this.historicoFalhas = historicoFalhas;
     }
 
     @Override
@@ -90,12 +65,12 @@ public class Equipamento {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Equipamento that = (Equipamento) o;
-        return Objects.equals(getIdEquipamento(), that.getIdEquipamento()) && Objects.equals(getNomeEquipamento(), that.getNomeEquipamento()) && Objects.equals(getLocalizacaoEquipamento(), that.getLocalizacaoEquipamento()) && getStatusEquipamento() == that.getStatusEquipamento() && Objects.equals(getFalhasEquipamento(), that.getFalhasEquipamento());
+        return Objects.equals(getIdEquipamento(), that.getIdEquipamento()) && Objects.equals(getNomeEquipamento(), that.getNomeEquipamento()) && Objects.equals(getLocalizacaoEquipamento(), that.getLocalizacaoEquipamento()) && getStatusEquipamento() == that.getStatusEquipamento() && Objects.equals(getHistoricoFalhas(), that.getHistoricoFalhas());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getIdEquipamento(), getNomeEquipamento(), getLocalizacaoEquipamento(), getStatusEquipamento(), getFalhasEquipamento());
+        return Objects.hash(getIdEquipamento(), getNomeEquipamento(), getLocalizacaoEquipamento(), getStatusEquipamento(), getHistoricoFalhas());
     }
 
     @Override
@@ -105,7 +80,7 @@ public class Equipamento {
                 ", nomeEquipamento='" + nomeEquipamento + '\'' +
                 ", localizacaoEquipamento=" + localizacaoEquipamento.getNome() +
                 ", statusEquipamento=" + statusEquipamento +
-                ", falhasEquipamento=" + falhasEquipamento +
+                ", falhas=" + historicoFalhas +
                 '}';
     }
 }
