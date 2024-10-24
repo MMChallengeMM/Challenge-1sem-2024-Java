@@ -1,6 +1,8 @@
 package com.challengemm.models;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -20,17 +22,17 @@ public class Relatorio {
                 Data: %s
                 ========================
                 %s
-                """,idRelatorio,tipoRelatorio,dataGeracao,dadosRelatorio);
+                """, idRelatorio, tipoRelatorio, dataGeracao.format(DateTimeFormatter.ofPattern("dd/MM/yy - HH:mm")), dadosRelatorio);
     }
 
     private String gerarDadosGeral(HistoricoFalhas historicoFalhas) {
         var falhas = historicoFalhas.getFalhas();
 
         if (falhas.isEmpty()) {
-            return  "Não há falhas";
+            return "Não há falhas";
         }
 
-        return gerarDadosGeral(falhas);
+        return gerarDados(falhas);
     }
 
     private String gerarDadosPorTipoFalha(HistoricoFalhas historicoFalhas, TIPO_FALHA tipoFalha) {
@@ -41,7 +43,7 @@ public class Relatorio {
             return "Não há falhas desse tipo";
         }
 
-        return gerarDadosGeral(falhas);
+        return gerarDados(falhas).replace(" mais frequente", "");
     }
 
     private String gerarDadosPorPeriodo(HistoricoFalhas historicoFalhas, LocalDateTime dataInicial, LocalDateTime dataFinal) {
@@ -51,10 +53,10 @@ public class Relatorio {
             return "Não há falhas nesse periodo";
         }
 
-        return gerarDadosGeral(falhas);
+        return gerarDados(falhas);
     }
 
-    private String gerarDadosGeral(List<Falha> falhas) {
+    private String gerarDados(List<Falha> falhas) {
         var numeroTotalFalhas = falhas.size();
         var falhaMaisFrequente = falhas.stream()
                 .collect(Collectors.groupingBy(Falha::getTipoFalha, Collectors.counting()))
@@ -62,11 +64,33 @@ public class Relatorio {
                 .max(Map.Entry.comparingByValue())
                 .orElse(null);
 
+        List<Falha> ultimasFalhas;
+
+        if (falhas.size() < 5) {
+            ultimasFalhas = falhas.stream()
+                    .sorted(Comparator.comparing(Falha::getDataRegitro).reversed())
+                    .toList()
+                    .subList(0, falhas.size());
+        } else {
+            ultimasFalhas = falhas.stream()
+                    .sorted(Comparator.comparing(Falha::getDataRegitro).reversed())
+                    .toList()
+                    .subList(0, 5);
+        }
+
+        var ultimasFalhasFormatado = "";
+
+        for (var falha : ultimasFalhas) {
+            ultimasFalhasFormatado += falha.exibirFalha();
+        }
+
         return """
                 
-                Número total de falhas: %d
                 Tipo de falha mais frequente: %s
-                """.formatted(numeroTotalFalhas, falhaMaisFrequente == null ? "Não há falhas" : falhaMaisFrequente.getKey());
+                Número total de falhas: %d
+                Ultimas falhas:
+                %s
+                """.formatted(falhaMaisFrequente == null ? "Não há falhas" : falhaMaisFrequente.getKey(), numeroTotalFalhas, ultimasFalhasFormatado);
     }
 
 
@@ -86,14 +110,14 @@ public class Relatorio {
         this.idRelatorio = idRelatorio;
         this.dataGeracao = LocalDateTime.now();
         this.tipoRelatorio = TIPO_RELATORIO.TIPO_DE_FALHA;
-        this.dadosRelatorio = gerarDadosPorTipoFalha(historicoFalhas,tipoFalha);
+        this.dadosRelatorio = gerarDadosPorTipoFalha(historicoFalhas, tipoFalha);
     }
 
     public Relatorio(String idRelatorio, HistoricoFalhas historicoFalhas, LocalDateTime dataInicial, LocalDateTime dataFinal) {
         this.idRelatorio = idRelatorio;
         this.dataGeracao = LocalDateTime.now();
         this.tipoRelatorio = TIPO_RELATORIO.PERIODO;
-        this.dadosRelatorio = gerarDadosPorPeriodo(historicoFalhas,dataInicial,dataFinal);
+        this.dadosRelatorio = gerarDadosPorPeriodo(historicoFalhas, dataInicial, dataFinal);
     }
 
     public String getIdRelatorio() {

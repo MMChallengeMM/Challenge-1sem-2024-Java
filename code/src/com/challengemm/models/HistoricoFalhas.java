@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Objects;
 
 public class HistoricoFalhas {
-    private final List<Falha> falhas = new ArrayList<>();
+    private List<Falha> falhas = new ArrayList<>();
 
     public void addFalha(Falha falha) {
         falhas.add(falha);
@@ -43,6 +43,10 @@ public class HistoricoFalhas {
     // Métodos Gerais
 
     public HistoricoFalhas() {
+    }
+
+    public HistoricoFalhas(List<Falha> falhas) {
+        this.falhas = falhas;
     }
 
     public List<Falha> getFalhas() {

@@ -16,13 +16,16 @@ public class Main {
 
         var equip1 = new Equipamento("1","Catraca",estacao1, STATUS_EQUIPAMENTO.ATIVO, new HistoricoFalhas());
 
-//        equip1.getHistoricoFalhas().addFalha(new Falha(TIPO_FALHA.ELETRICA));
-//        equip1.getHistoricoFalhas().addFalha(new Falha(TIPO_FALHA.SOFTWARE));
-//        equip1.getHistoricoFalhas().addFalha(new Falha(TIPO_FALHA.OUTRO));
-//        equip1.getHistoricoFalhas().addFalha(new Falha(TIPO_FALHA.MECANICA));
-//        equip1.getHistoricoFalhas().addFalha(new Falha(TIPO_FALHA.SOFTWARE));
+        equip1.getHistoricoFalhas().addFalha(new Falha("1",TIPO_FALHA.ELETRICA,"a"));
+        equip1.getHistoricoFalhas().addFalha(new Falha("2",TIPO_FALHA.SOFTWARE,"b"));
+        equip1.getHistoricoFalhas().addFalha(new Falha("3",TIPO_FALHA.MECANICA,"c"));
+        equip1.getHistoricoFalhas().addFalha(new Falha("4",TIPO_FALHA.OUTRO,"d"));
+        equip1.getHistoricoFalhas().addFalha(new Falha("5",TIPO_FALHA.SOFTWARE,"e"));
+        equip1.getHistoricoFalhas().addFalha(new Falha("6",TIPO_FALHA.ELETRICA,"f"));
+        equip1.getHistoricoFalhas().addFalha(new Falha("7",TIPO_FALHA.SOFTWARE,"g"));
 
-        new Relatorio("1",equip1.getHistoricoFalhas()).exibirRelatorio();
+        new Relatorio("1",equip1.getHistoricoFalhas(), TIPO_FALHA.SOFTWARE)
+                .exibirRelatorio();
 
 
 

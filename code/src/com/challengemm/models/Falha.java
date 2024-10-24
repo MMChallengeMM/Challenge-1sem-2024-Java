@@ -1,6 +1,7 @@
 package com.challengemm.models;
 
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 public class Falha {
 
@@ -10,11 +11,19 @@ public class Falha {
     private LocalDateTime dataRegitro;
     private STATUS_FALHA statusFalha;
 
+    public String exibirFalha() {
+        return "#%s (%s) | %s | %s: %s\n".formatted(idFalha,statusFalha,dataRegitro,tipoFalha,descricaoFalha);
+    }
+
     public Falha() {
     }
 
-    public Falha(TIPO_FALHA tipoFalha) {
+    public Falha(String idFalha, TIPO_FALHA tipoFalha, String descricaoFalha) {
+        this.idFalha = idFalha;
         this.tipoFalha = tipoFalha;
+        this.descricaoFalha = descricaoFalha;
+        this.dataRegitro = LocalDateTime.now();
+        this.statusFalha = STATUS_FALHA.EM_ANALISE;
     }
 
     public String getIdFalha() {
@@ -55,5 +64,29 @@ public class Falha {
 
     public void setStatusFalha(STATUS_FALHA statusFalha) {
         this.statusFalha = statusFalha;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Falha falha = (Falha) o;
+        return Objects.equals(getIdFalha(), falha.getIdFalha()) && getTipoFalha() == falha.getTipoFalha() && Objects.equals(getDescricaoFalha(), falha.getDescricaoFalha()) && Objects.equals(getDataRegitro(), falha.getDataRegitro()) && getStatusFalha() == falha.getStatusFalha();
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getIdFalha(), getTipoFalha(), getDescricaoFalha(), getDataRegitro(), getStatusFalha());
+    }
+
+    @Override
+    public String toString() {
+        return "Falha{" +
+                "idFalha='" + idFalha + '\'' +
+                ", tipoFalha=" + tipoFalha +
+                ", descricaoFalha='" + descricaoFalha + '\'' +
+                ", dataRegitro=" + dataRegitro +
+                ", statusFalha=" + statusFalha +
+                '}';
     }
 }
