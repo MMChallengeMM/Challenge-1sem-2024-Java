@@ -2,7 +2,7 @@ package com.challengemm.models.Usuario;
 
 import java.util.Objects;
 
-public class Usuario {
+public abstract class Usuario {
     private String idUsuario;
     private String nome;
     private TURNO_USUARIO turnoUsuario;
