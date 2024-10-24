@@ -1,4 +1,7 @@
-package com.challengemm.models;
+package com.challengemm.models.Relatorio;
+
+import com.challengemm.models.Falha.Falha;
+import com.challengemm.models.Falha.TIPO_FALHA;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;

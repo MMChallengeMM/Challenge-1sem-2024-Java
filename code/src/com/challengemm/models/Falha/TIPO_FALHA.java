@@ -1,4 +1,4 @@
-package com.challengemm.models;
+package com.challengemm.models.Falha;
 
 public enum TIPO_FALHA {
     MECANICA,

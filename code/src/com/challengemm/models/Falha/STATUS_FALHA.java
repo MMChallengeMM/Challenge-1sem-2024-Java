@@ -1,4 +1,4 @@
-package com.challengemm.models;
+package com.challengemm.models.Falha;
 
 public enum STATUS_FALHA {
     EM_ANALISE,

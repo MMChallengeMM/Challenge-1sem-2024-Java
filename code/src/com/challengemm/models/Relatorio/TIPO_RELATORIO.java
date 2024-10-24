@@ -1,4 +1,4 @@
-package com.challengemm.models;
+package com.challengemm.models.Relatorio;
 
 public enum TIPO_RELATORIO {
     GERAL,

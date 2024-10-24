@@ -1,6 +1,13 @@
 package com.challengemm.main;
 
-import com.challengemm.models.*;
+import com.challengemm.models.Equipamento.Equipamento;
+import com.challengemm.models.Falha.Falha;
+import com.challengemm.models.Equipamento.STATUS_EQUIPAMENTO;
+import com.challengemm.models.Falha.TIPO_FALHA;
+import com.challengemm.models.MecanismoFerrovia.Estacao;
+import com.challengemm.models.MecanismoFerrovia.Linha;
+import com.challengemm.models.Relatorio.HistoricoFalhas;
+import com.challengemm.models.Relatorio.Relatorio;
 
 public class Main {
     public static void main(String[] args) {
@@ -16,7 +23,7 @@ public class Main {
 
         var equip1 = new Equipamento("1","Catraca",estacao1, STATUS_EQUIPAMENTO.ATIVO, new HistoricoFalhas());
 
-        equip1.getHistoricoFalhas().addFalha(new Falha("1",TIPO_FALHA.ELETRICA,"a"));
+        equip1.getHistoricoFalhas().addFalha(new Falha("1", TIPO_FALHA.ELETRICA,"a"));
         equip1.getHistoricoFalhas().addFalha(new Falha("2",TIPO_FALHA.SOFTWARE,"b"));
         equip1.getHistoricoFalhas().addFalha(new Falha("3",TIPO_FALHA.MECANICA,"c"));
         equip1.getHistoricoFalhas().addFalha(new Falha("4",TIPO_FALHA.OUTRO,"d"));
