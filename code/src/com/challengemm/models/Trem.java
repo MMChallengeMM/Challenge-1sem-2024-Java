@@ -1,4 +1,4 @@
-package com.challengemm.models.MecanismoFerrovia;
+package com.challengemm.models;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,4 +1,4 @@
-package com.challengemm.models.Equipamento;
+package com.challengemm.models;
 
 public enum STATUS_EQUIPAMENTO {
     ATIVO,

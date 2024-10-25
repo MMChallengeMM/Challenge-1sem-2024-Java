@@ -1,4 +1,4 @@
-package com.challengemm.models.Usuario;
+package com.challengemm.models;
 
 public enum TURNO_USUARIO {
     MANHA,

@@ -1,7 +1,4 @@
-package com.challengemm.models.Relatorio;
-
-import com.challengemm.models.Falha.Falha;
-import com.challengemm.models.Falha.TIPO_FALHA;
+package com.challengemm.models;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;

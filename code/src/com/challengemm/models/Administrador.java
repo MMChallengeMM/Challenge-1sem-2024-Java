@@ -1,4 +1,4 @@
-package com.challengemm.models.Usuario;
+package com.challengemm.models;
 
 import java.util.Objects;
 

@@ -1,4 +1,4 @@
-package com.challengemm.models.MecanismoFerrovia;
+package com.challengemm.models;
 
 public enum TIPO_VAGAO {
     CARGA,

@@ -1,13 +1,6 @@
 package com.challengemm.main;
 
-import com.challengemm.models.Equipamento.Equipamento;
-import com.challengemm.models.Falha.Falha;
-import com.challengemm.models.Equipamento.STATUS_EQUIPAMENTO;
-import com.challengemm.models.Falha.TIPO_FALHA;
-import com.challengemm.models.MecanismoFerrovia.Estacao;
-import com.challengemm.models.MecanismoFerrovia.Linha;
-import com.challengemm.models.Relatorio.HistoricoFalhas;
-import com.challengemm.models.Relatorio.Relatorio;
+import com.challengemm.models.*;
 
 public class Main {
     public static void main(String[] args) {
@@ -23,6 +16,8 @@ public class Main {
 
         var equip1 = new Equipamento("1","Catraca",estacao1, STATUS_EQUIPAMENTO.ATIVO, new HistoricoFalhas());
 
+        var operador1 = new Operador("1","Carlos",TURNO_USUARIO.MANHA,"Administração Geral");
+
         equip1.getHistoricoFalhas().addFalha(new Falha("1", TIPO_FALHA.ELETRICA,"a"));
         equip1.getHistoricoFalhas().addFalha(new Falha("2",TIPO_FALHA.SOFTWARE,"b"));
         equip1.getHistoricoFalhas().addFalha(new Falha("3",TIPO_FALHA.MECANICA,"c"));
@@ -31,8 +26,7 @@ public class Main {
         equip1.getHistoricoFalhas().addFalha(new Falha("6",TIPO_FALHA.ELETRICA,"f"));
         equip1.getHistoricoFalhas().addFalha(new Falha("7",TIPO_FALHA.SOFTWARE,"g"));
 
-        new Relatorio("1",equip1.getHistoricoFalhas(), TIPO_FALHA.SOFTWARE)
-                .exibirRelatorio();
+        operador1.gerarNovoRelatorio(TIPO_RELATORIO.TIPO_DE_FALHA,equip1.getHistoricoFalhas());
 
 
 

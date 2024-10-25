@@ -1,7 +1,4 @@
-package com.challengemm.models.Relatorio;
-
-import com.challengemm.models.Falha.Falha;
-import com.challengemm.models.Falha.TIPO_FALHA;
+package com.challengemm.models;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -71,13 +68,13 @@ public class Relatorio {
 
         if (falhas.size() < 5) {
             ultimasFalhas = falhas.stream()
-                    .sorted(Comparator.comparing(Falha::getDataRegitro).reversed())
-                    .toList()
+                    .sorted(Comparator.comparing(Falha::getDataRegitro))
+                    .toList().reversed()
                     .subList(0, falhas.size());
         } else {
             ultimasFalhas = falhas.stream()
-                    .sorted(Comparator.comparing(Falha::getDataRegitro).reversed())
-                    .toList()
+                    .sorted(Comparator.comparing(Falha::getDataRegitro))
+                    .toList().reversed()
                     .subList(0, 5);
         }
 

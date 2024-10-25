@@ -1,6 +1,4 @@
-package com.challengemm.models.MecanismoFerrovia;
-
-import com.challengemm.models.Equipamento.Equipamento;
+package com.challengemm.models;
 
 import java.util.List;
 import java.util.Objects;

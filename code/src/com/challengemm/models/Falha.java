@@ -1,4 +1,4 @@
-package com.challengemm.models.Falha;
+package com.challengemm.models;
 
 import java.time.LocalDateTime;
 import java.util.Objects;

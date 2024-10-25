@@ -1,6 +1,4 @@
-package com.challengemm.models.Usuario;
-
-import com.challengemm.models.Manutencao;
+package com.challengemm.models;
 
 import java.util.ArrayList;
 import java.util.List;
